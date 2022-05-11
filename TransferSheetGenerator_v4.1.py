@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Oct 14 09:59:15 2021
-
-@author: cranque
+@author: EqualRanc
 """
 
 import xlwings as xw
@@ -57,7 +56,7 @@ assaycheckboxes = [[sg.Checkbox(':XA', default=False, key="-NN2-"), sg.Checkbox(
     sg.Checkbox(':1Z', default=False, key="-Z2-"), sg.Checkbox(':Z', default=False, key="-ZZ2-"),
     sg.Checkbox(':PYT', default=False, key="-O2-"), sg.Checkbox(':Q', default=False, key="-AT2-"),
     sg.Checkbox(':ZO', default=False, key="-CA2-"), sg.Checkbox(':TGTT', default=False, key="-AH2-"),
-    sg.Checkbox(':BR', default=False, key="-KT2-"), sg.Checkbox(':W', default=False, key="-BO2-"), sg.Checkbox(':ID', default=False, key="-ORPH2-")]
+    sg.Checkbox(':BR', default=False, key="-KT2-"), sg.Checkbox(':W', default=False, key="-BO2-")]
 ]
 
 #Define inputs for chemical class volumes in Assay Transfer Tab, will implement if needed.... currently it is not being used
@@ -65,7 +64,7 @@ assayvolumes = [[sg.Frame('XA:', [[sg.Input(0, key="-VNN2-",size=(5,1))]]), sg.F
     [sg.Frame('Z:', [[sg.Input(0, key="-VZZ2-",size=(5,1))]]), sg.Frame('1Z:', [[sg.Input(0, key="-VZ2-",size=(5,1))]])],
     [sg.Frame('PYT:', [[sg.Input(0, key="-VO2-",size=(5,1))]]), sg.Frame('Q:', [[sg.Input(0, key="-VAT2-",size=(5,1))]])],
     [sg.Frame('ZO:', [[sg.Input(0, key="-VCA2-",size=(5,1))]]), sg.Frame('TGTT:', [[sg.Input(0, key="-VAH2-",size=(5,1))]])],
-    [sg.Frame('BR:', [[sg.Input(0, key="-VKT2-",size=(5,1))]]), sg.Frame('W:', [[sg.Input(0, key="-VBO2-",size=(5,1))]]), sg.Frame('ID:', [[sg.Input(0, key="-VORPH2-",size=(5,1))]])]
+    [sg.Frame('BR:', [[sg.Input(0, key="-VKT2-",size=(5,1))]]), sg.Frame('W:', [[sg.Input(0, key="-VBO2-",size=(5,1))]])]
 ]
 
 
@@ -75,7 +74,7 @@ chemvolumes = [[sg.Frame('XA:', [[sg.Input('0', key="-VNN-",size=(5,1))]]), sg.F
     [sg.Frame('Z:', [[sg.Input('0', key="-VZZ-",size=(5,1))]]), sg.Frame('1Z:', [[sg.Input('0', key="-VZ-",size=(5,1))]])],
     [sg.Frame('PYT:', [[sg.Input('0', key="-VO-",size=(5,1))]]), sg.Frame('Q:', [[sg.Input('0', key="-VAT-",size=(5,1))]])],
     [sg.Frame('ZO:', [[sg.Input('0', key="-VCA-",size=(5,1))]]), sg.Frame('TGTT:', [[sg.Input('0', key="-VAH-",size=(5,1))]])],
-    [sg.Frame('BR:', [[sg.Input('0', key="-VKT-",size=(5,1))]]), sg.Frame('W:', [[sg.Input('0', key="-VBO-",size=(5,1))]]), sg.Frame('ID:', [[sg.Input(0, key="-VORPH-",size=(5,1))]])]
+    [sg.Frame('BR:', [[sg.Input('0', key="-VKT-",size=(5,1))]]), sg.Frame('W:', [[sg.Input('0', key="-VBO-",size=(5,1))]])]
 ]
 
 
@@ -174,10 +173,7 @@ while True:
     if event in (sg.WINDOW_CLOSED, "Exit (Chemical Tab)") or event in (sg.WINDOW_CLOSED, "Exit (Assay Tab)"):
         break
     
-
-
-    
-    
+   
     #Code for Chemical Transfer Tab
     elif event == "Generate Chemical Transfer Sheet":
         try:
@@ -185,9 +181,6 @@ while True:
             chemmetadata = values['-chemmetadata-']
             oner = process_xl(27, filename)
             checkboxlist = []
-
-           
-
           
             #Create list of data tab names where user entered a transfer volume greater than 0
             if values['-VNN-'] != '0':
@@ -210,8 +203,6 @@ while True:
                checkboxlist.append(["data 25"]) 
             if values['-VBO-'] != '0':
                 checkboxlist.append(["data 26", "data 27"])
-            if values['-VORPH-'] != '0':
-                checkboxlist.append(["data 99"])
 
             #Begin concatenating the desired chemical classes' data tabs and initializing the transfer sheet
             checkboxlist = [j for i in checkboxlist for j in i]
@@ -248,11 +239,8 @@ while True:
             if values['-VKT-'] != 0:  
                 chemslice.loc[(chemslice['Class'] == 'BR'),"Transfer Volume"] = values['-VKT-']
             if values['-VBO-'] !=0:  
-                chemslice.loc[(chemslice['Class'] == 'W'),"Transfer Volume"] = values['-VBO-']            
-            if values['-VORPH-'] != 0: 
-                chemslice.loc[(chemslice['Class'] == 'ID'),"Transfer Volume"] = values['-VORPH-']                
-            
-            
+                chemslice.loc[(chemslice['Class'] == 'W'),"Transfer Volume"] = values['-VBO-']                         
+     
                 
             #Clean up the dataframe and finalize it
             if values['-removeempties-'] == True:
@@ -308,8 +296,6 @@ while True:
                 assaycheckboxlist.append(["data 25"])
             if values['-BO2-'] == True:
                 assaycheckboxlist.append(["data 26", "data 27"])
-            if values['-ORPH2-'] == True:
-                assaycheckboxlist.append(["data 99"])
 
             assaycheckboxlist = [j for i in assaycheckboxlist for j in i]
             if len(assaycheckboxlist) == 0:
@@ -452,5 +438,3 @@ while True:
     elif event == "Exit":
         break
 window.close()
-
-        
