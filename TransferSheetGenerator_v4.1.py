@@ -320,8 +320,6 @@ def asheetclean(assayslice):
     return assayfinal, outfile
 
 def swindow():
-    sg.theme('DarkTeal12')
-
     #Define checkboxes for chemical classes in Assay Transfer Tab
     assaycheckboxes = [[sg.Checkbox(':XA', default=False, key="-NN2-"), sg.Checkbox(':XB', default=False, key="-N2-"),
                         sg.Checkbox(':1Z', default=False, key="-Z2-"), sg.Checkbox(':Z', default=False, key="-ZZ2-"),
@@ -434,7 +432,8 @@ def swindow():
 
 tabgrp = swindow()
 
-#Define window
+#Define window and theme
+sg.theme('DarkTeal12')
 window = sg.Window('Chemical Database Tool', tabgrp, no_titlebar=False, alpha_channel=.9, grab_anywhere=True)
 
 #Create event loop to enable user inputs
