@@ -136,30 +136,74 @@ def aformat(assayfullsheet):
     
 def ctvol(chemslice):
     #Begin filling in values for user-entered transfer volumes
-    if values['-VNN-'] != 0:
-        chemslice.loc[(chemslice['Class'] == 'XA'),"Transfer Volume"] = values['-VNN-']   
-    if values['-VN-'] != 0:
-        chemslice.loc[(chemslice['Class'] == 'XB'),"Transfer Volume"] = values['-VN-']
-    if values['-VZZ-'] != 0:
-        chemslice.loc[(chemslice['Class'] == 'Z'),"Transfer Volume"] = values['-VZZ-']
-    if values['-VZ-'] != 0:
-        chemslice.loc[(chemslice['Class'] == '1Z'),"Transfer Volume"] = values['-VZ-']
-    if values['-VO-'] != 0:   
-        chemslice.loc[(chemslice['Class'] == 'PYT'),"Transfer Volume"] = values['-VO-']
-    if values['-VAT-'] != 0: 
-        chemslice.loc[(chemslice['Class'] == 'Q'),"Transfer Volume"] = values['-VAT-']
-    if values['-VAH-'] != 0:    
-        chemslice.loc[(chemslice['Class'] == 'TGTT'),"Transfer Volume"] = values['-VAH-']
-    if values['-VCA-'] != 0:  
-        chemslice.loc[(chemslice['Class'] == 'ZO'),"Transfer Volume"] = values['-VCA-']
-    if values['-VKT-'] != 0:  
-        chemslice.loc[(chemslice['Class'] == 'BR'),"Transfer Volume"] = values['-VKT-']
-    if values['-VBO-'] !=0:  
-        chemslice.loc[(chemslice['Class'] == 'W'),"Transfer Volume"] = values['-VBO-'] 
+    if values['-VNN-'] != '0':
+        if float(values['-VNN-']) > 2000 or float(values['-VNN-']) < 2.5:
+            window['chemstatus'].print("XA transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == 'XA'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == 'XA'),"Transfer Volume"] = values['-VNN-']   
+    if values['-VN-'] != '0':
+        if float(values['-VN-']) > 2000 or float(values['-VN-']) < 2.5:
+            window['chemstatus'].print("XB transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == 'XB'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == 'XB'),"Transfer Volume"] = values['-VN-']
+    if values['-VZZ-'] != '0':
+        if float(values['-VZZ-']) > 2000 or float(values['-VZZ-']) < 2.5:
+            window['chemstatus'].print("Z transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == 'Z'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == 'Z'),"Transfer Volume"] = values['-VZZ-']
+    if values['-VZ-'] != '0':
+        if float(values['-VZ-']) > 2000 or float(values['-VZ-']) < 2.5:
+            window['chemstatus'].print("1Z transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == '1Z'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == '1Z'),"Transfer Volume"] = values['-VZ-']
+    if values['-VO-'] != '0':
+        if float(values['-VO-']) > 2000 or float(values['-VO-']) < 2.5:
+            window['chemstatus'].print("PYT transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == 'PYT'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == 'PYT'),"Transfer Volume"] = values['-VO-']
+    if values['-VAT-'] != '0':
+        if float(values['-VAT-']) > 2000 or float(values['-VAT-']) < 2.5:
+            window['chemstatus'].print("Q transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == 'Q'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == 'Q'),"Transfer Volume"] = values['-VAT-']
+    if values['-VAH-'] != '0':
+        if float(values['-VAH-']) > 2000 or float(values['-VAH-']) < 2.5:
+            window['chemstatus'].print("TGTT transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == 'TGTT'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == 'TGTT'),"Transfer Volume"] = values['-VAH-']
+    if values['-VCA-'] != '0':
+        if float(values['-VCA-']) > 2000 or float(values['-VCA-']) < 2.5:
+            window['chemstatus'].print("ZO transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == 'ZO'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == 'ZO'),"Transfer Volume"] = values['-VCA-']
+    if values['-VKT-'] != '0':
+        if float(values['-VKT-']) > 2000 or float(values['-VKT-']) < 2.5:
+            window['chemstatus'].print("BR transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == 'BR'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == 'BR'),"Transfer Volume"] = values['-VKT-']
+    if values['-VBO-'] !='0':
+        if float(values['-VBO-']) > 2000 or float(values['-VBO-']) < 2.5:
+            window['chemstatus'].print("W transfer volume is not compatible with the Echo. Setting to default of 50nL.")
+            chemslice.loc[(chemslice['Class'] == 'W'),"Transfer Volume"] = '50'
+        else:
+            chemslice.loc[(chemslice['Class'] == 'W'),"Transfer Volume"] = values['-VBO-'] 
     return chemslice
 
 def atvol(assayslice, assayxvol):
-    assayslice['Transfer Volume'] = assayxvol
+    if assayxvol > 2000 or assayxvol < 2.5:
+        window['assaystatus'].print("Incompatible volume entered, setting to default of 50nL.")
+        assayslice['Transfer Volume'] = '50'
+    else:
+        assayslice['Transfer Volume'] = assayxvol
     xbw = int(values['-xbw-'])+1
     bbw = int(values['-bbw-'])+1
     hiw = int(values['-hiw-'])+1
@@ -409,7 +453,7 @@ while True:
             chemfullsheet = ctablist()
             chemslice = zformat(chemfullsheet)           
             chemslice = ctvol(chemslice)
-            chemfinal, outfile = csheetclean(chemslice, values)      
+            chemfinal, outfile = csheetclean(chemslice)      
             chemfinal.to_csv(outfile, index=False)
             window['chemstatus'].print("Chemical Transfer Sheet Generation Successful! \n Export to outfile %s completed." % outfile)
         except:
